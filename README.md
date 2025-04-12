@@ -23,7 +23,7 @@ It uses Selenium to interact with the web browser, fetches anime score data from
     *   A compatible web browser (e.g., Chrome, Firefox) installed.
     *   The corresponding WebDriver for your browser (e.g., `chromedriver`, `geckodriver`).
 
-2.  **Clone the Repository (if applicable):**
+2.  **Clone the Repository:**
     ```bash
     git clone <your-repository-url>
     cd <repository-directory>
