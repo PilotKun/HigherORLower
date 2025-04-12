@@ -1,0 +1,23 @@
+# Python Virtual Environment
+venv/
+
+# Python Cache directories
+__pycache__/
+*/__pycache__/  # Catches cache in subdirectories like handlers/
+
+# Compiled Python files
+*.py[cod]
+
+# Database File (as requested)
+data/anime_scores.db
+
+# WebDriver executables (usually large and platform-specific)
+drivers/
+
+# Results/Log Files
+testsResults.txt
+*.log
+
+# OS-generated files (optional but good practice)
+.DS_Store
+Thumbs.db
