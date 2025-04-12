@@ -13,8 +13,8 @@ GAME_URL = "https://www.higherorlowergame.com/anime/score/"
 ROUND_DELAY = 8 # Seconds to wait between rounds for page to update
 RESULTS_FILE = "testsResults.txt"
 
-def get_or_fetch_score(title: str) -> float | None:
-    """Gets score from DB, fetches from API if not found, and saves if fetched."""
+def get_or_fetch_score(title: str, expected_type: str | None) -> float | None:
+    """Gets score from DB, fetches from API if not found (using type hint), and saves if fetched."""
     if not title:
         print("Error: Received empty title.")
         return None
@@ -22,12 +22,14 @@ def get_or_fetch_score(title: str) -> float | None:
     # Check database first
     score = database_handler.get_score_from_db(title)
     if score is not None:
-        print(f"DEBUG Main: Using score {score} for '{title}' from DB.")
+        # print(f"DEBUG Main: Using score {score} for '{title}' from DB.") # Removed debug print
+        print(f"Found '{title}' in DB with score: {score}") # Restored original print
         return score
 
-    # If not in DB, fetch from Jikan API
-    print(f"DEBUG Main: '{title}' not in DB, fetching from Jikan API...")
-    score = jikan_api.get_anime_score(title)
+    # If not in DB, fetch from Jikan API, providing the expected type
+    print(f"'{title}' not in DB, fetching from Jikan API (Expected Type: {expected_type or 'Any'})...")
+    # Pass the expected_type to the API handler
+    score = jikan_api.get_anime_score(title, expected_type)
 
     # If successfully fetched, save to DB for future use
     # Note: We save using the *original* title from the game, even if the
@@ -61,6 +63,54 @@ def main():
         game_logic.click_play_button(driver)
         time.sleep(ROUND_DELAY) # Wait for the first round to load
 
+        # --- Attempt to retrieve potential User IDs (Commented Out) --- 
+        # print("\nAttempting to find player identifiers...")
+        # try:
+        #     # Check Local Storage - Dump all keys
+        #     print("  Checking Local Storage...")
+        #     local_storage_length = driver.execute_script("return localStorage.length;")
+        #     if local_storage_length > 0:
+        #         for i in range(local_storage_length):
+        #             key = driver.execute_script(f"return localStorage.key({i});")
+        #             value = driver.execute_script(f"return localStorage.getItem('{key}');")
+        #             value_preview = str(value)[:150] # Limit value length
+        #             if len(str(value)) > 150:
+        #                 value_preview += '...'
+        #             print(f"    - Local['{key}']: {value_preview}")
+        #     else:
+        #         print("    (Local Storage is empty)")
+        # 
+        #     # Check Session Storage - Dump all keys
+        #     print("  Checking Session Storage...")
+        #     session_storage_length = driver.execute_script("return sessionStorage.length;")
+        #     if session_storage_length > 0:
+        #         for i in range(session_storage_length):
+        #             key = driver.execute_script(f"return sessionStorage.key({i});")
+        #             value = driver.execute_script(f"return sessionStorage.getItem('{key}');")
+        #             value_preview = str(value)[:150] # Limit value length
+        #             if len(str(value)) > 150:
+        #                 value_preview += '...'
+        #             print(f"    - Session['{key}']: {value_preview}")
+        #     else:
+        #         print("    (Session Storage is empty)")
+        # 
+        #     # Check Cookies (remains the same)
+        #     all_cookies = driver.get_cookies()
+        #     if all_cookies:
+        #         print("  Found Cookies:")
+        #         for cookie in all_cookies:
+        #             value_preview = str(cookie.get('value', ''))[:100]
+        #             if len(cookie.get('value', '')) > 100:
+        #                 value_preview += '...'
+        #             print(f"    - {cookie.get('name')}: {value_preview}")
+        #     else:
+        #         print("  No cookies found for this domain.")
+        # 
+        # except Exception as e:
+        #     print(f"  Error while trying to retrieve identifiers: {e}")
+        # print("---")
+        # --- End of ID retrieval attempt ---
+
         while True: # Loop indefinitely until game over
             rounds_played += 1
             print(f"\n--- Round {rounds_played} ---")
@@ -72,8 +122,9 @@ def main():
                 print("Game title elements not found. Assuming game over.")
                 break # Exit the loop
 
-            left_title, right_title = game_logic.get_anime_titles(driver)
-            print(f"Left: {left_title} | Right: {right_title}")
+            # Get titles AND types
+            left_title, left_type, right_title, right_type = game_logic.get_anime_titles(driver)
+            print(f"Left: {left_title} (Type: {left_type}) | Right: {right_title} (Type: {right_type})")
 
             if not left_title or not right_title:
                 print("Could not read titles. Attempting to wait and retry or stopping.")
@@ -87,8 +138,9 @@ def main():
                    time.sleep(ROUND_DELAY)
                    continue # Try next loop iteration
 
-            left_score = get_or_fetch_score(left_title)
-            right_score = get_or_fetch_score(right_title)
+            # Fetch scores using the titles and their expected types
+            left_score = get_or_fetch_score(left_title, left_type)
+            right_score = get_or_fetch_score(right_title, right_type)
 
             if left_score is None or right_score is None:
                 print("Could not determine scores for both titles.")

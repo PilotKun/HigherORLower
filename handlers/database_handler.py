@@ -58,7 +58,7 @@ def get_score_from_db(title: str) -> float | None:
         result = cursor.fetchone()
         if result:
             score = result[0]
-            print(f"DEBUG DB: Found score {score} for '{title}' in database.") # Added debug print
+            # print(f"DEBUG DB: Found score {score} for '{title}' in database.") # Removed debug print
             # print(f"Found score {score} for '{title}' in database.") # Optional: uncomment for debugging
         # else:
             # print(f"Title '{title}' not found in database.") # Optional: uncomment for debugging

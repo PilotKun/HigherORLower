@@ -1,2 +1,4 @@
 selenium
-requests 
+requests
+# Add thefuzz for string similarity
+thefuzz[speedup] 

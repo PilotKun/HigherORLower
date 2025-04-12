@@ -2,10 +2,25 @@ TEST 1: played 6 rounds, highscore don't remember
 TEST 2: played 3 rounds, highscore don't remember
 TEST 3: played 5 rounds, highscore 3
 TEST 4: played 56 rounds, highscore 55
-TEST 5: played 117 rounds, highscore 116, ran for 22min
+TEST 5: played 117 rounds, highscore 116, ran for 0:22:00
 TEST 6: played 112 rounds, highscore 111, ran for 0:18:12
 TEST 7: played 7 rounds, highscore 7, ran for 0:02:21
 TEST 8: played 29 rounds, highscore 29, ran for 0:05:57
 TEST 9: played 22 rounds, highscore 22, ran for 0:05:02
 TEST 10: played 13 rounds, highscore 5, ran for 0:03:10
 TEST 11: played 73 rounds, highscore 73, ran for 0:16:16
+TEST 12: played 10 rounds, highscore 10, ran for 0:02:38
+TEST 13: played 30 rounds, highscore 30, ran for 0:05:39
+TEST 14: played 0 rounds, highscore 0, ran for 0:00:47
+TEST 15: played 29 rounds, highscore 29, ran for 0:05:37
+TEST 16: played 92 rounds, highscore 92, ran for 0:17:08
+TEST 17: played 16 rounds, highscore 16, ran for 0:03:33
+TEST 18: played 13 rounds, highscore 13, ran for 0:02:47
+TEST 19: played 91 rounds, highscore 91, ran for 0:15:50
+TEST 20: played 31 rounds, highscore 31, ran for 0:05:30
+TEST 21: played 65 rounds, highscore 65, ran for 0:10:19
+TEST 22: played 87 rounds, highscore 87, ran for 0:13:26
+TEST 23: played 124 rounds, highscore 124, ran for 0:18:41
+TEST 24: played 0 rounds, highscore 0, ran for 0:00:46
+TEST 25: played 77 rounds, highscore 77, ran for 0:11:43
+TEST 26: played 201 rounds, highscore 201, ran for 0:29:09

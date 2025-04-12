@@ -12,6 +12,8 @@ import time # Import time for delays if needed later
 PLAY_BUTTON_XPATH = '//*[@id="start-game-anime-all"]'
 LEFT_TITLE_XPATH = "/html/body/section[2]/div[1]/button[2]/section/h2"
 RIGHT_TITLE_XPATH = "/html/body/section[2]/div[2]/button[1]/section/h2"
+LEFT_TYPE_XPATH = "/html/body/section[2]/div[1]/button[2]/section/h4"
+RIGHT_TYPE_XPATH = "/html/body/section[2]/div[2]/button[1]/section/h4"
 LEFT_CHOICE_XPATH = "/html/body/section[2]/div[1]/button[2]"
 RIGHT_CHOICE_XPATH = "/html/body/section[2]/div[2]/button[1]"
 SCORE_DISPLAY_XPATH = "/html/body/section[2]/div[4]" # Contains "Score: X High score: Y"
@@ -55,18 +57,24 @@ def click_play_button(driver: WebDriver):
         print("Play button not found.")
 
 
-def get_anime_titles(driver: WebDriver) -> tuple[str | None, str | None]:
-    """Gets the text of the left and right anime titles."""
+def get_anime_titles(driver: WebDriver) -> tuple[str | None, str | None, str | None, str | None]:
+    """Gets the text of the left/right anime titles and their types (e.g., TV, Movie)."""
     left_title_element = _find_element(driver, By.XPATH, LEFT_TITLE_XPATH)
     right_title_element = _find_element(driver, By.XPATH, RIGHT_TITLE_XPATH)
+    left_type_element = _find_element(driver, By.XPATH, LEFT_TYPE_XPATH)
+    right_type_element = _find_element(driver, By.XPATH, RIGHT_TYPE_XPATH)
 
     left_title = left_title_element.text.strip() if left_title_element else None
     right_title = right_title_element.text.strip() if right_title_element else None
+    left_type = left_type_element.text.strip().upper() if left_type_element and left_type_element.text else None
+    right_type = right_type_element.text.strip().upper() if right_type_element and right_type_element.text else None
 
     if not left_title or not right_title:
         print(f"Warning: Could not retrieve one or both titles (Left: {left_title}, Right: {right_title})")
+    if not left_type or not right_type:
+        print(f"Warning: Could not retrieve one or both types (Left Type: {left_type}, Right Type: {right_type})")
 
-    return left_title, right_title
+    return left_title, left_type, right_title, right_type
 
 def get_current_score(driver: WebDriver) -> int | None:
     """Gets the current score from the score display element."""
