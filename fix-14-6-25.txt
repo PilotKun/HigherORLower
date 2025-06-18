@@ -1,0 +1,30 @@
+fix: Improve browser automation reliability and connection handling
+
+This commit addresses several issues with the browser automation and connection handling:
+
+1. Browser Connection Improvements:
+- Disabled proxy settings to prevent localhost connection timeouts
+- Added browser options to improve connectivity and stability:
+  * --no-proxy-server: Disables proxy usage
+  * --disable-gpu: Prevents GPU-related issues
+  * --disable-dev-shm-usage: Improves memory handling
+  * --ignore-certificate-errors: Handles SSL issues
+  * --disable-web-security: Reduces connection restrictions
+  * --allow-running-insecure-content: Improves content loading
+
+2. Timeout and Error Handling:
+- Reduced page load timeout from 120s to 30s for faster failure detection
+- Added page refresh fallback when initial navigation fails
+- Improved error logging and recovery mechanisms
+
+3. XPath and Element Interaction:
+- Reverted to absolute XPaths for more reliable element location
+- Maintained improved element waiting logic for better stability
+- Added explicit waits for elements to be both present and clickable
+
+4. Code Structure:
+- Enhanced error handling in browser initialization
+- Added better logging for debugging purposes
+- Improved code organization in browser_handler.py
+
+These changes should resolve the connection timeout issues and improve the overall reliability of the browser automation process.

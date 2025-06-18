@@ -1,6 +1,5 @@
 # Python Virtual Environment
-venv/
-
+.venv/
 # Python Cache directories
 __pycache__/
 */__pycache__/  # Catches cache in subdirectories like handlers/

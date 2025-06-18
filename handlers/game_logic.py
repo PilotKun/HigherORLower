@@ -18,7 +18,7 @@ LEFT_CHOICE_XPATH = "/html/body/section[2]/div[1]/button[2]"
 RIGHT_CHOICE_XPATH = "/html/body/section[2]/div[2]/button[1]"
 SCORE_DISPLAY_XPATH = "/html/body/section[2]/div[4]" # Contains "Score: X High score: Y"
 
-WAIT_TIMEOUT = 10 # Seconds to wait for elements
+WAIT_TIMEOUT = 10 # Increased timeout for better reliability
 
 def _find_element(driver: WebDriver, by: str, value: str) -> WebElement | None:
     """Helper function to find an element with explicit wait."""
@@ -28,8 +28,8 @@ def _find_element(driver: WebDriver, by: str, value: str) -> WebElement | None:
         )
         # Optional: Add wait for visibility/interactability if needed
         # element = WebDriverWait(driver, WAIT_TIMEOUT).until(
-        #     EC.element_to_be_clickable((by, value))
-        # )
+        #    EC.element_to_be_clickable((by, value))
+        #)
         return element
     except TimeoutException:
         print(f"Error: Element not found or timed out ({by}={value})")

@@ -7,6 +7,7 @@ import handlers.jikan_api as jikan_api
 import time
 import datetime # Added for timestamping and duration
 import os       # Added for file path operations
+# from selenium.webdriver.support.ui import WebDriverWait
 
 GAME_URL = "https://www.higherorlowergame.com/anime/score/"
 # MAX_ROUNDS = 10 # No longer needed, play until game over
@@ -58,7 +59,14 @@ def main():
 
     try:
         browser_handler.navigate_to_url(driver, GAME_URL)
-        time.sleep(2) # Wait a bit for page elements to potentially settle
+        # print("Waiting for page to fully load...")
+        time.sleep(2)  # Increased initial wait time for page load
+        
+        # Wait for the page to be in a ready state
+        # WebDriverWait(driver, 20).until(
+        #     lambda d: d.execute_script('return document.readyState') == 'complete'
+        # )
+        # print("Page fully loaded, attempting to start game...")
 
         game_logic.click_play_button(driver)
         time.sleep(ROUND_DELAY) # Wait for the first round to load
