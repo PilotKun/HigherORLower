@@ -31,4 +31,4 @@ TEST 30: played 49 rounds, highscore 49, ran for 0:10:36
 TEST 31: played 0 rounds, highscore 0, ran for 0:00:16
 TEST 32: played 0 rounds, highscore 0, ran for 0:01:37
 TEST 33: played 13 rounds, highscore 13, ran for 0:04:26
-TEST 34: played 43 rounds, highscore 43, ran for 0:06:35
+TEST 34: played 43 rounds, highscore 43, ran for 0:06:35TEST 35: played 53 rounds, highscore 53, ran for 0:08:23
