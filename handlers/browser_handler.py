@@ -5,7 +5,7 @@ from selenium.webdriver.chrome.service import Service as ChromeService
 from selenium.webdriver.chrome.options import Options
 
 # TODO: Specify path to Brave browser executable and ChromeDriver
-BRAVE_PATH = "/usr/bin/brave-browser"
+BRAVE_PATH = "/usr/bin/brave"
 CHROMEDRIVER_PATH = "/usr/bin/chromedriver"  # Linux chromedriver path
 
 # TODO: Implement functions for initialization, navigation, element interaction, and closing
